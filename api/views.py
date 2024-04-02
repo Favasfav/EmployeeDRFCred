@@ -77,7 +77,7 @@ class EmployeeapiViewset(ViewSet):
             )
 
         return Response(
-            {"message": "Sucessfully created ", "data": employee_serializer.data},
+            {"message": "Sucessfully created ", "data": [employee_serializer.data,address_serializer.data,work_experience_serializer.data,qualification_serializer.data,project_serializer.data]},
             status=status.HTTP_201_CREATED,
         )
 
