@@ -77,8 +77,7 @@ class EmployeeapiViewset(ViewSet):
             )
 
         return Response(
-            {"message": "Sucessfully created "},
-            employee_serializer.data,
+            {"message": "Sucessfully created ", "data": employee_serializer.data},
             status=status.HTTP_201_CREATED,
         )
 
@@ -93,7 +92,7 @@ class EmployeeapiViewset(ViewSet):
 
         employee_data = request.data
 
-        address_data = employee_data.pop("address_details", None)
+        address_data = [employee_data.pop("address_details", None)]
         work_experience_data = employee_data.pop("work_experience", [])
         qualifications_data = employee_data.pop("qualifications", [])
         projects_data = employee_data.pop("projects", [])
@@ -155,9 +154,10 @@ class EmployeeapiViewset(ViewSet):
                 )
 
         return Response(
-            EmployeeSerializer(
-                {"message": "Sucessfully updated"}, employee_instance
-            ).data,
+            {
+                "message": "Sucessfully updated",
+                "employee": EmployeeSerializer(employee_instance).data,
+            },
             status=status.HTTP_200_OK,
         )
 
